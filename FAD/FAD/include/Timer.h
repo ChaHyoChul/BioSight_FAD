@@ -6,6 +6,7 @@ class Timer
 private:
     unsigned long _timeoutMillis;
     unsigned long _startTime;
+    bool _isStarted;
 
 public:
     Timer();
@@ -14,6 +15,8 @@ public:
 public:
     void Start(unsigned long timeoutMillis);
     bool IsTimeout();
+    bool IsStarted();
+    void Reset();
 };
 
 #endif

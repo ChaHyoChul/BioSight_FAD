@@ -1,11 +1,9 @@
 ﻿#include "Timer.h"
-
 #include <Arduino.h>
 
 Timer::Timer()
 {
-    _timeoutMillis = 0;
-    _startTime = millis();
+    Reset();
 }
 
 Timer::~Timer()
@@ -16,6 +14,7 @@ void Timer::Start(unsigned long timeoutMillis)
 {
     _timeoutMillis = timeoutMillis;
     _startTime = millis();
+    _isStarted = true;
 }
 
 bool Timer::IsTimeout()
@@ -24,10 +23,23 @@ bool Timer::IsTimeout()
 
     if(currentTime < _startTime)
     {
-        currentTime = millis();
         _startTime = millis();
+        currentTime = millis();
         return false;
     }
 
-    return currentTime - _startTime > _timeoutMillis;
+    bool isTimeout = ((currentTime - _startTime) > _timeoutMillis);
+    return isTimeout;
+}
+
+bool Timer::IsStarted()
+{
+    return _isStarted;
+}
+
+void Timer::Reset()
+{
+    _timeoutMillis = 0;
+    _startTime = millis();
+    _isStarted = false;
 }
