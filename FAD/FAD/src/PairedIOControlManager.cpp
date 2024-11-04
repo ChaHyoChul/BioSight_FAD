@@ -36,10 +36,10 @@ void PairedIOControlManager::Process()
         int inputIndex = ioPairs[i].InputIndex;
         int state = global._digitalInputsClicked[inputIndex] ? HIGH : LOW;
         digitalWrite(DIGITAL_OUTPUT_FIRST_PIN + ioPairs[i].OutputIndex, state);
-		if(ioPairs[i].OutputIndex == 0)
-		{
-			digitalWrite(DIGITAL_OUTPUT_FIRST_PIN + ioPairs[i].OutputIndex + 5, state);
-		}
+		//if(ioPairs[i].OutputIndex == 0)
+		//{
+			//digitalWrite(DIGITAL_OUTPUT_FIRST_PIN + ioPairs[i].OutputIndex + 5, state);
+		//}
     }
 }
 

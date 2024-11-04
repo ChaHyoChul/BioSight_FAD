@@ -253,6 +253,9 @@
     <Compile Include="include\KiSAN_KM6015.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="include\KiSAN_KM6023.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="include\KiSAN_KM6063.h">
       <SubType>compile</SubType>
     </Compile>
@@ -305,6 +308,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\KiSAN_KM6015.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\KiSAN_KM6023.cpp">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\KiSAN_KM6063.cpp">

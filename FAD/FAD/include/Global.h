@@ -16,6 +16,8 @@ public:
     float *_analogInputs;
     double *_analogInputsKisan;
 	bool *_kisanOutputs;
+	double *_analogOutputsKisan;
+	double *_analogOutputsKisanTargets;
 
 public:
     Global();

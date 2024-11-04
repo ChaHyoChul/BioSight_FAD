@@ -7,6 +7,7 @@
 
 #include "KiSAN_KM6015.h"
 #include "KiSAN_KM6063.h"
+#include "KiSAN_KM6023.h"
 
 BuiltInLED builtInLed;
 IOManager ioManager;
@@ -17,6 +18,7 @@ PairedIOControlManager pairedIOControlManager;
 
 KiSAN_KM6015 _km6015;
 KiSAN_KM6063 _km6063;
+KiSAN_KM6023 _km6023;
 int _currentModule = 0;
 
 void setup()
@@ -24,13 +26,13 @@ void setup()
     builtInLed.Initialize(1000);
     ioManager.Initialize();
     remoteServer.Initialize(&Serial1, 9600);
+	//Serial.begin(9600);
 	remoteServerDebug.Initialize(&Serial, 9600);
 	
 	Serial2.begin(9600);
-	_km6015.Initialize(&Serial2);
-	//_km6063.Initialize(&Serial3);
-	
-	//Serial.print("Start");
+	//_km6015.Initialize(&Serial2);
+	//_km6063.Initialize(&Serial2);
+	_km6023.Initialize(&Serial2);
 }
 
 void loop()
@@ -41,8 +43,8 @@ void loop()
     pairedIOControlManager.Process();
     remoteServer.Process();
 	remoteServerDebug.Process();
-	
-	_km6015.Process();
+
+	_km6023.Process();
 	
 	//switch(_currentModule)
 	//{

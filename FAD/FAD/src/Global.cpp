@@ -30,6 +30,19 @@ Global::Global()
 	
 	_kisanOutputs = new bool[KISAN_DIGITAL_OUTPUT_COUNT];
 	memset(_kisanOutputs, 0, sizeof(bool) * KISAN_DIGITAL_OUTPUT_COUNT);
+	
+	
+	_analogOutputsKisan = new double[KISAN_ANALOG_OUTPUT_COUNT];
+	for(int i=0; i<KISAN_ANALOG_OUTPUT_COUNT; i++)
+	{
+		_analogOutputsKisan[i] = 0.0;
+	}
+	
+	_analogOutputsKisanTargets = new double[KISAN_ANALOG_OUTPUT_COUNT];
+	for(int i=0; i<KISAN_ANALOG_OUTPUT_COUNT; i++)
+	{
+		_analogOutputsKisanTargets[i] = 0.0;
+	}
 }
 
 Global::~Global()
@@ -40,6 +53,8 @@ Global::~Global()
     delete [] _digitalInputsClicked;
 	delete [] _analogInputsKisan;
 	delete [] _kisanOutputs;
+	delete [] _analogOutputsKisan;
+	delete [] _analogOutputsKisanTargets;
 }
 
 Global global;

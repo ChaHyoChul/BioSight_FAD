@@ -2,11 +2,11 @@
 #include "GlobalDefinition.h"
 #include "Global.h"
 
-#define RECEIVE_BUFFER_SIZE (16)
+#define RECEIVE_BUFFER_SIZE (32)
 #define COMMAND_DATA_BUFFER_SIZE (8)
-#define ARGUMENT_COUNT_BUFFER_SIZE (4)
+#define ARGUMENT_COUNT_BUFFER_SIZE (8)
 #define ARGUMENT_DATA_BUFFER_SIZE (8)
-#define RESPONSE_DATA_BUFFER_SIZE (64)
+#define RESPONSE_DATA_BUFFER_SIZE (128)
 
 #define ERROR_COMMAND_DATA_BUFFER_OVERFLOW ("E0001")
 #define ERROR_ARGUMENT_COUNT_BUFFER_OVERFLOW ("E0002")
@@ -203,7 +203,74 @@ void RemoteServer::Process()
                 strcat(response, ",");
                 strcat(response, temp);
             }
+			//
+			//for(int i = 0; i < KISAN_ANALOG_OUTPUT_COUNT; i++)
+			//{
+				//memset(temp, 0, sizeof(char) * tempBufferCount);
+				//dtostrf(global._analogOutputsKisan[i], 2, 2, temp);
+				//strcat(response, ",");
+				//strcat(response, temp);
+			//}
+			//
+			//for(int i = 0; i < KISAN_ANALOG_OUTPUT_COUNT; i++)
+			//{
+				//memset(temp, 0, sizeof(char) * tempBufferCount);
+				//dtostrf(global._analogOutputsKisanTargets[i], 2, 2, temp);
+				//strcat(response, ",");
+				//strcat(response, temp);
+			//}
         }
+		else if(strcmp(command, "GDST") == 0)
+		{
+			unsigned short inputs = 0;
+			unsigned short outputs = 0;
+
+			for(int i = 0; i < DIGITAL_INPUT_COUNT; i++)
+			{
+				inputs |= (global._digitalInputs[i] << i);
+			}
+
+			for(int i = 0; i < DIGITAL_OUTPUT_COUNT; i++)
+			{
+				outputs |= (global._digitalOutputs[i] << i);
+			}
+			
+			for(int i=0; i<KISAN_DIGITAL_OUTPUT_COUNT; i++)
+			{
+				outputs |= (global._kisanOutputs[i] << (i + DIGITAL_OUTPUT_COUNT));
+			}
+
+			sprintf(response, "%s %d,%d,%04X,%04X",
+			command,
+			global._systemMode, global._controlMode,
+			inputs, outputs);
+
+			const int tempBufferCount = 5;
+			char temp[tempBufferCount] = {0};
+			for(int i = 0; i < ANALOG_INPUT_COUNT; i++)
+			{
+				memset(temp, 0, sizeof(char) * tempBufferCount);
+				dtostrf(global._analogInputs[i], 2, 2, temp);
+				strcat(response, ",");
+				strcat(response, temp);
+			}
+
+			for(int i = 0; i < KISAN_ANALOG_INPUT_COUNT; i++)
+			{
+				memset(temp, 0, sizeof(char) * tempBufferCount);
+				dtostrf(global._analogInputsKisan[i], 2, 2, temp);
+				strcat(response, ",");
+				strcat(response, temp);
+			}
+			
+			for(int i = 0; i < KISAN_ANALOG_OUTPUT_COUNT; i++)
+			{
+				memset(temp, 0, sizeof(char) * tempBufferCount);
+				dtostrf(global._analogOutputsKisan[i], 2, 2, temp);
+				strcat(response, ",");
+				strcat(response, temp);
+			}
+		}
         else if (strcmp(command, "SSDO") == 0)
         {
             if(global._controlMode == ControlMode::CM_Auto)
@@ -331,6 +398,50 @@ void RemoteServer::Process()
                 sprintf(response, "%s %s", command, ERROR_INVALID_CONTROL_MODE);
             }
         }
+		else if(strcmp(command, "SSAO"))
+		{
+			bool isPassedArgumentCheck = true;
+			if(argumentIndex != 2)
+			{
+				sprintf(response, "%s %s", command, ERROR_INVALID_ARGUMENT_COUNT);
+				isPassedArgumentCheck = false;
+			}
+
+			for(int i = 0; i < argumentIndex; i++)
+			{
+				for(int j = 0; j < argumentDataIndexs[i]; j++)
+				{
+					if(arguments[i][j] < '0' || arguments[i][j] > '9')
+					{
+						sprintf(response, "%s %s", command, ERROR_INVALID_ARGUMENT_FORMAT);
+						isPassedArgumentCheck = false;
+						break;
+					}
+				}
+			}
+
+			int outputIndex = 0;
+			int outputTargetValue = 0;
+
+			if(isPassedArgumentCheck)
+			{
+				outputIndex = atoi(arguments[0]);
+				outputTargetValue = atoi(arguments[1]);
+
+				if (outputIndex < 0 || outputIndex >= (KISAN_ANALOG_OUTPUT_COUNT) ||
+				outputTargetValue < 0 || outputTargetValue > 20000)
+				{
+					sprintf(response, "%s %s", command, ERROR_INVALID_ARGUMENT_RANGE);
+					isPassedArgumentCheck = false;
+				}
+			}
+
+			if(isPassedArgumentCheck)
+			{
+				global._analogOutputsKisanTargets[outputIndex] = outputTargetValue;
+				sprintf(response, "%s", command);
+			}
+		}
         else
         {
             sprintf(response, "%s %s", command, ERROR_NOT_SUPPORTED_COMMAND);
