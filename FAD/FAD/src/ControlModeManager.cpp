@@ -15,27 +15,27 @@ void ControlModeManager::Process()
 {
 	// TODO: 인천 환경과학원 컨트롤 모드 변경 스위치에 대한 조건처리.
 	// TODO: 다른 애들은 다르게 판정해야 함.
-	if(global._digitalInputs[15] == false)
-	{
-		//if(global._controlMode != ControlMode::CM_Emergency)
-		//{
-			global._controlMode = ControlMode::CM_Emergency;
-
-			for(int i=0; i<DIGITAL_INPUT_COUNT; i++)
-			{
-				global._digitalInputsClicked[i] = false;
-			}
-
-			digitalWrite(DIGITAL_OUTPUT_FIRST_PIN, LOW);
-			//for(int i=DIGITAL_OUTPUT_FIRST_PIN + 1; i <= DIGITAL_OUTPUT_LAST_PIN; i++)
+	//if(global._digitalInputs[15] == false)
+	//{
+		////if(global._controlMode != ControlMode::CM_Emergency)
+		////{
+			//global._controlMode = ControlMode::CM_Emergency;
+//
+			//for(int i=0; i<DIGITAL_INPUT_COUNT; i++)
 			//{
-				//digitalWrite(i, LOW);
+				//global._digitalInputsClicked[i] = false;
 			//}
-			digitalWrite(DIGITAL_OUTPUT_FIRST_PIN + 5, HIGH);
-		//}
-		
-		return;
-	}
+//
+			//digitalWrite(DIGITAL_OUTPUT_FIRST_PIN, LOW);
+			////for(int i=DIGITAL_OUTPUT_FIRST_PIN + 1; i <= DIGITAL_OUTPUT_LAST_PIN; i++)
+			////{
+				////digitalWrite(i, LOW);
+			////}
+			//digitalWrite(DIGITAL_OUTPUT_FIRST_PIN + 5, HIGH);
+		////}
+		//
+		//return;
+	//}
 	
 	if(global._digitalInputs[0] == true || global._digitalInputs[1] == false)
 	{
