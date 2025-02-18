@@ -18,6 +18,8 @@ public:
 	bool *_kisanOutputs;
 	double *_analogOutputsKisan;
 	double *_analogOutputsKisanTargets;
+	
+	float _oxygenConcentration; 
 
 public:
     Global();

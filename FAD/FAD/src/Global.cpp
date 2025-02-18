@@ -43,6 +43,8 @@ Global::Global()
 	{
 		_analogOutputsKisanTargets[i] = 0.0;
 	}
+	
+	_oxygenConcentration = 0.0;
 }
 
 Global::~Global()

@@ -161,6 +161,13 @@ void RemoteServer::Process()
         {
             sprintf(response, "%s %s", command, VERSION);
         }
+		else if(strcmp(command, "OXYG") == 0)
+		{
+			sprintf(response, "%s %d %d ", 
+				command, 
+				(int)(global._oxygenConcentration + 0.5), 
+				(int)(global._analogInputsKisan[2] + 0.5));
+		}
         else if(strcmp(command, "GSTA") == 0)
         {
             unsigned short inputs = 0;

@@ -9,6 +9,8 @@
 #include "KiSAN_KM6063.h"
 #include "KiSAN_KM6023.h"
 
+#include "ExternalFanControl.h"
+
 BuiltInLED builtInLed;
 IOManager ioManager;
 RemoteServer remoteServer;
@@ -46,6 +48,8 @@ void loop()
 
 	_km6015.Process();
 	//_km6023.Process();
+
+	ExternalFanControl();
 	
 	//switch(_currentModule)
 	//{
