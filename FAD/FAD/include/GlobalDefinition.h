@@ -1,7 +1,6 @@
 ﻿#ifndef GLOBALDEFINITION_H_
 #define GLOBALDEFINITION_H_
 
-//#define VERSION ("v3.0.0")
 #define VERSION ("v3.0.1")
 
 //#define DEBUG

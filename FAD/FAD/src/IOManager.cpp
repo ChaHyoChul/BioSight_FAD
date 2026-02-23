@@ -41,7 +41,7 @@ void IOManager::Initialize()
 	digitalWrite(DIGITAL_OUTPUT_FIRST_PIN + fanOutput1, LOW);
 	digitalWrite(DIGITAL_OUTPUT_FIRST_PIN + fanOutput2, LOW);
 }
-/*
+
 void IOManager::Process()
 {
     for(int digitalInputPin = DIGITAL_INPUT_FIRST_PIN; digitalInputPin <= DIGITAL_INPUT_LAST_PIN; digitalInputPin++)
@@ -120,8 +120,9 @@ void IOManager::Process()
         global._analogInputs[index] = data * 20.0 / 1023.0;
     }
 }
-*/
 
+// Lock Type 버튼 사용할 경우 
+/*
 void IOManager::Process()
 {
 	for(int digitalInputPin = DIGITAL_INPUT_FIRST_PIN; digitalInputPin <= DIGITAL_INPUT_LAST_PIN; digitalInputPin++)
@@ -203,3 +204,4 @@ void IOManager::Process()
 		global._analogInputs[index] = data * 20.0 / 1023.0;
 	}
 }
+*/

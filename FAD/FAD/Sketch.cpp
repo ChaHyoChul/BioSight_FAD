@@ -46,28 +46,11 @@ void loop()
     remoteServer.Process();
 	remoteServerDebug.Process();
 
-	_km6015.Process();
+	// kisan. 아나로그 입력 모듈 
+	_km6015.Process();	
+	// kisan. 아나로그 출력 모듈 
 	//_km6023.Process();
 
-	ExternalFanControl();
-	
-	//switch(_currentModule)
-	//{
-		//case 0:
-		//if(_km6063.Process())
-		//{
-			//_currentModule = 1;
-		//}
-		//break;
-		//
-		//case 1:
-		//if(_km6015.Process())
-		//{
-			//_currentModule = 0;
-		//}
-		//break;
-		//
-		//default:
-		//_currentModule = 0;
-	//}
+	// 인천 환경과학원. 생물자원관 전용 
+	// ExternalFanControl();
 }

@@ -17,7 +17,8 @@ void ControlModeManager::Process()
 	// TODO: 다른 애들은 다르게 판정해야 함.
 	// TODO - hccha: 주석문만 제거 
 	//	DIGITAL_OUTPUT_FIRST_PIN은 왜 다시 ON 하는지? 확인 필요 
-	if(global._digitalInputs[15] == false)
+	/*if(global._digitalInputs[15] == false)*/
+	if(global._digitalInputs[15] == true)
 	{
 		if(global._controlMode != ControlMode::CM_Emergency)
 		{
@@ -33,7 +34,7 @@ void ControlModeManager::Process()
 			{
 				digitalWrite(i, LOW);
 			}
-			digitalWrite(DIGITAL_OUTPUT_FIRST_PIN + 5, HIGH);
+			digitalWrite(DIGITAL_OUTPUT_FIRST_PIN + 5, HIGH);	// 알람 Bit On 
 		}
 		
 		return;
