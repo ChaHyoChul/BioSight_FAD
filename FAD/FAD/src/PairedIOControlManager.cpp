@@ -3,20 +3,23 @@
 #include "Arduino.h"
 #include "GlobalDefinition.h"
 
-#define PAIRED_IO_LIST_SIZE (4)
+//#define PAIRED_IO_LIST_SIZE (5)
+#define PAIRED_IO_LIST_SIZE (9)
 
 PairedIOControlManager::PairedIOControlManager()
 {
     ioPairs = new IOPair[PAIRED_IO_LIST_SIZE];
 
-    SetIOPair(0, 2, 0);
-    SetIOPair(1, 3, 1);
-    SetIOPair(2, 4, 2);
-    SetIOPair(3, 5, 3);
-    //SetIOPair(4, 6, 4);
-    //SetIOPair(5, 7, 5);
-    //SetIOPair(6, 8, 6);
-    //SetIOPair(7, 9, 7);
+    SetIOPair(0, 2, 0);		// main valve 
+    SetIOPair(1, 3, 1);		// group 1 
+    SetIOPair(2, 4, 2);		// group 2 
+    SetIOPair(3, 5, 3);		// group 3
+	SetIOPair(4, 6, 4);		// group 4
+	
+    SetIOPair(5, 8, 8);		// 
+    SetIOPair(6, 9, 9);
+    SetIOPair(7, 10, 10);
+    SetIOPair(8, 11, 11);
 }
 
 PairedIOControlManager::~PairedIOControlManager()

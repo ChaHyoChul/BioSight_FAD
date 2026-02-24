@@ -3,7 +3,7 @@
 #include "Global.h"
 #include "GlobalDefinition.h"
 
-#define SEND_BUFFER_SIZE (16)
+#define SEND_BUFFER_SIZE (20)
 #define RECEIVE_BUFFER_SIZE (64)
 #define DATA_COUNT (8)
 #define RETRY_COUNT (5)
@@ -58,13 +58,13 @@ bool KiSAN_KM6015::Process()
 	int receiveResult = -1;
 	switch(_state)
 	{
-		case 0:
+	case 0:
 		Send();
 		_receiveTimer.Start(RECEIVE_TIMEOUT_MILLISECONDS);
 		_state = 1;
 		break;
 
-		case 1:
+	case 1:
 		receiveResult = Receive();
 		if(receiveResult == 1)
 		{
@@ -113,13 +113,13 @@ bool KiSAN_KM6015::Process()
 		}
 		break;
 
-		case 2:
+	case 2:
 		ProcessReceive();
 		_state = 3;
 		_waitTimer.Start(500);
 		break;
 		
-		case 3:
+	case 3:
 		if(_waitTimer.IsTimeout())
 		{
 			_state = 0;
@@ -128,7 +128,7 @@ bool KiSAN_KM6015::Process()
 		}
 		break;
 
-		default:
+	default:
 		_state = 0;
 		result = true;
 	}
