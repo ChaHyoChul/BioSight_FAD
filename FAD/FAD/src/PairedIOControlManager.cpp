@@ -16,10 +16,11 @@ PairedIOControlManager::PairedIOControlManager()
     SetIOPair(3, 5, 3);		// group 3
 	SetIOPair(4, 6, 4);		// group 4
 	
-    SetIOPair(5, 8, 8);		// 
-    SetIOPair(6, 9, 9);
-    SetIOPair(7, 10, 10);
-    SetIOPair(8, 11, 11);
+    SetIOPair(5, 7, 8);		// aux1 (KM6065) 
+    SetIOPair(6, 8, 9);		// aux2 (KM6065) 
+    SetIOPair(7, 9, 10);	// aux3 (KM6065) 
+    SetIOPair(8, 10, 11);	// aux4 (KM6065) 
+
 }
 
 PairedIOControlManager::~PairedIOControlManager()
@@ -37,8 +38,21 @@ void PairedIOControlManager::Process()
     for(int i=0; i<PAIRED_IO_LIST_SIZE; i++)
     {
         int inputIndex = ioPairs[i].InputIndex;
+		int outputIndex = ioPairs[i].OutputIndex;
         int state = global._digitalInputsClicked[inputIndex] ? HIGH : LOW;
-        digitalWrite(DIGITAL_OUTPUT_FIRST_PIN + ioPairs[i].OutputIndex, state);
+
+		if (outputIndex < DIGITAL_OUTPUT_COUNT)
+		{
+			digitalWrite(DIGITAL_OUTPUT_FIRST_PIN + outputIndex, state);
+		}
+		else
+		{
+			int kisanIndex = outputIndex - DIGITAL_OUTPUT_COUNT;
+			if (kisanIndex >= 0 && kisanIndex < KISAN_DIGITAL_OUTPUT_COUNT)
+			{
+				global._kisanOutputs[kisanIndex] = (state == HIGH);
+			}
+		}
 		//if(ioPairs[i].OutputIndex == 0)
 		//{
 			//digitalWrite(DIGITAL_OUTPUT_FIRST_PIN + ioPairs[i].OutputIndex + 5, state);
