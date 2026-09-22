@@ -1,0 +1,26 @@
+{
+  "tools-root": "BioSight_FAD/tools",
+  "avr-gcc": {
+    "version": "16.1.0",
+    "binutils": "2.46.1",
+    "avr-libc": "2.3.2",
+    "url": "https://github.com/ZakKemble/avr-gcc-build/releases/download/v16.1.0-1/avr-gcc-16.1.0-x64-windows.zip",
+    "sha256": "de4aad501ee42b63d5d262e45470924cd2654f6bc437f0299875efa6b8d8d0fe",
+    "directory": "avr-gcc-16.1.0-x64-windows"
+  },
+  "avrdude": {
+    "version": "8.3",
+    "url": "https://github.com/avrdudes/avrdude/releases/download/v8.3/avrdude-v8.3-windows-x64.zip",
+    "sha256": "8630c7d8bb9682a1685aaa9ad42550ae1131c9d13528f0d20975368ba615e9b0",
+    "directory": "avrdude-8.3-windows-x64"
+  },
+  "python": {
+    "cmake": "4.4.3",
+    "ninja": "1.13.2"
+  },
+  "host": {
+    "llvm": "23.1.1",
+    "wsl-distribution": "Ubuntu-26.04",
+    "simavr": "1.6"
+  }
+}
