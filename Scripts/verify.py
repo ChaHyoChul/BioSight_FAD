@@ -584,6 +584,9 @@ def command_simulate(arguments):
     if not os.path.isfile(elf):
         log("[simulate] build/release/FAD.elf 가 없다. python Scripts/verify.py build 를 먼저 실행한다.")
         return 1
+    if not arguments.update and not os.path.isfile(SIMULATION_EXPECTED):
+        log("[simulate] 로컬 기준 기록이 없다. python Scripts/verify.py simulate --update 를 먼저 실행한다.")
+        return 1
 
     result = run_simulation(elf)
     report = {"succeeded": result["succeeded"], "seconds": result.get("seconds", 0), "metrics": result.get("metrics", {})}
@@ -689,7 +692,10 @@ def command_all(arguments):
         status |= 0 if tests.result()["succeeded"] else 1
 
         status |= 0 if replay(simulator.result()) else 1
-        status |= command_simulate(arguments)
+        if os.path.isfile(SIMULATION_EXPECTED):
+            status |= command_simulate(arguments)
+        else:
+            log("[simulate] 로컬 기준 기록이 없어 건너뛴다")
         status |= report_paths(replay(paths.result()))
     log("[all] {0}".format("모두 통과" if status == 0 else "실패한 단계가 있다"))
     return status

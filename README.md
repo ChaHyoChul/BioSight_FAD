@@ -60,7 +60,7 @@ python Scripts/verify.py all
 - `check` — 파일 규칙(UTF-8·LF·170열·주석 없음), 빌드 목록, 버전 표기 대조
 - `build` — Release·Debug 빌드, 경고가 하나라도 있으면 실패
 - `test` — PC에서 로직 단위 시험 35개
-- `simulate` — Release 펌웨어를 simavr로 돌려 응답 기록 369줄을 기대 기록과 대조하고 루프·응답 시간을 잰다
+- `simulate` — Release 펌웨어를 simavr로 실행한다. 로컬 기준 기록이 없으면 `all`에서는 이 단계를 건너뛴다
 - `paths` — 공백·한글·260자가 넘는 경로에서 빌드와 시험
 
 성능이 바뀌는 수정은 아래 두 명령으로 전후를 잰다. 두 명령은 `all`에 들어 있지 않다.
